@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load static %}
+
+<footer class="p-5" style="background-color: #f8bbd0;">
+    {% block footer %}
+        <div class="row">
+            <div class="col-12 col-md">
+                <a href="/">
+                    <img class="" height="40px" width="250px" src="{% static 'images/logo.png' %}" alt="">
+                </a>
+                <small class="ml-4 d-block mb-2 text-muted">© 2017–2021 Company, Inc.</small>
+                <a class="ml-4" href="#">Back to top</a>
+            </div>
+            <div class="col-6 col-md ">
+                <h5>Features</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="#">Cool stuff</a></li>
+                    <li><a class="link-secondary" href="#">Random feature</a></li>
+                    <li><a class="link-secondary" href="#">Team feature</a></li>
+                    <li><a class="link-secondary" href="#">Stuff for developers</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="#">Phone Number1</a></li>
+                    <li><a class="link-secondary" href="#">Phone Number2</a></li>
+                    <li><a class="link-secondary" href="#">Email</a></li>
+                    <li><a class="link-secondary" href="#">Map</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Resources</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="#">Business</a></li>
+                    <li><a class="link-secondary" href="#">Education</a></li>
+                    <li><a class="link-secondary" href="#">Government</a></li>
+                    <li><a class="link-secondary" href="#">Gaming</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>About</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="#">Team</a></li>
+                    <li><a class="link-secondary" href="#">Locations</a></li>
+                    <li><a class="link-secondary" href="#">Privacy</a></li>
+                    <li><a class="link-secondary" href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+    {% endblock %}
+</footer>

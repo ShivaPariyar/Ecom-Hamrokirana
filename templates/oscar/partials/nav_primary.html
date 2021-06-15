@@ -1,0 +1,91 @@
+{% load currency_filters %}
+{% load category_tags %}
+{% load i18n %}
+
+
+<nav class="{% block nav_classes %} navbar navbar-expand-lg navbar-light bg-white border-bottom {% endblock %}">
+
+    {# brand name #}
+    {% include "oscar/partials/brand.html" %}
+
+    {% block navbar_toggler %}
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon border-0"></span>
+        </button>
+    {% endblock %}
+
+
+    {#     collapse when minimized #}
+    {% block navbar_collapse %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            {# search bar #}
+            {% block nav_extra %}
+                {% include "oscar/partials/search.html" %}
+            {% endblock %}
+
+            {# browse store #}
+            {% block nav %}
+                <ul class="navbar-nav mr-xl-5">
+                    {% block nav_items %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
+                               role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% block browse_store_text %}
+                                    {% trans "All Categories" %}
+                                {% endblock %}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% category_tree depth=1 as tree_categories %}
+                                <a class="dropdown-item"
+                                   href="{% url 'catalogue:index' %}">{% trans "All products" %}</a>
+                                {% if tree_categories %}
+                                    <div class="dropdown-divider"></div>
+                                    {% for tree_category in tree_categories %}
+                                        <a class="dropdown-item"
+                                           href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="dropdown-divider"></div>
+                                {% block nav_dropdown_extra_items %}
+                                    <a class="dropdown-item"
+                                       href="{% url 'offer:list' %}">{% trans "Offers" %}</a>
+                                {% endblock %}
+                            </div>
+                        </li>
+                    {% endblock %}
+                </ul>
+            {% endblock %}
+
+            {# mini basket   #}
+            {% block mini_basket %}{% include "oscar/partials/mini_basket.html" %}{% endblock %}
+
+            {#  mini basket when minimized #}
+            {% block navbar_basket %}
+                <a class="btn btn-outline-danger  btn-cart d-inline-block d-md-none"
+                   href="{% url 'basket:summary' %}">
+                    <i class="fas fa-shopping-cart"></i>
+                    {#                    {% trans "Basket" %}#}
+                    {% if not request.basket.is_empty %}
+                        {% if request.basket.is_tax_known %}
+                            {% blocktrans with total=request.basket.total_incl_tax|currency:request.basket.currency %}
+                                {{ total }}
+                            {% endblocktrans %}
+                        {% else %}
+                            {% blocktrans with total=request.basket.total_excl_tax|currency:request.basket.currency %}
+                                {{ total }}
+                            {% endblocktrans %}
+                        {% endif %}
+                    {% endif %}
+                </a>
+            {% endblock %}
+
+
+        </div>
+    {% endblock %}
+
+
+</nav>
